@@ -11,6 +11,7 @@ import { SectionHeading, Img } from '../components/ui.jsx'
 import { img } from '../data/images.js'
 import { statusClass, isCompleted, sortDeparturesForDisplay } from '../data/flights.js'
 import { useFlights } from '../hooks/useFlights.js'
+import QRCode from 'qrcode'
 
 const heroButtons = [
   { label: 'Flight Info', icon: Plane, to: '/flights' },
@@ -95,6 +96,29 @@ export default function Home() {
   const [boardMode, setBoardMode] = useState('departure') // controls the live flight board
   const modeRef = useRef(null)
   const videoRef = useRef(null)
+  const [busQrUrl, setBusQrUrl] = useState('/airport-bus-qr.png')
+
+  useEffect(() => {
+    let alive = true
+    const origin = typeof window !== 'undefined' && window.location?.origin ? window.location.origin : 'https://www.rakairport.com'
+    const targetUrl = `${origin}/bus-service#schedule-guide`
+
+    QRCode.toDataURL(targetUrl, {
+      width: 480,
+      margin: 2,
+      color: {
+        dark: '#0f2740',
+        light: '#ffffff',
+      },
+    })
+      .then((dataUri) => {
+        if (alive) setBusQrUrl(dataUri)
+      })
+      .catch(() => {
+        // Keep fallback static png
+      })
+    return () => { alive = false }
+  }, [])
 
   // close the Arrival/Departure dropdown when clicking outside
   useEffect(() => {
@@ -481,19 +505,23 @@ export default function Home() {
                 ))}
               </ul>
               <Link
-                to="/bus-service"
+                to="/bus-service#schedule-guide"
                 className="mt-7 inline-flex items-center gap-2 rounded-full bg-white px-7 py-3.5 text-[14px] font-semibold text-brand-700 shadow-lg transition-transform hover:scale-[1.04]"
-              >{tr("View bus service ")}<ArrowRight size={16} />
+              >{tr("View Schedule Guide")}<ArrowRight size={16} />
               </Link>
             </div>
             <div className="mx-auto flex flex-col items-center">
-              <div className="rounded-2xl bg-white p-4 shadow-xl">
+              <Link
+                to="/bus-service#schedule-guide"
+                className="group block rounded-2xl bg-white p-4 shadow-xl transition-all hover:scale-105 hover:shadow-2xl focus:outline-none focus:ring-4 focus:ring-white/40"
+                title={tr("Click or scan to view shuttle schedule guide")}
+              >
                 <img
-                  src="/airport-bus-qr.png"
+                  src={busQrUrl}
                   alt={tr("QR code for airport free bus service details")}
                   width={200}
                   height={200}
-                  className="h-[200px] w-[200px] object-contain"
+                  className="h-[200px] w-[200px] object-contain transition-transform group-hover:scale-102"
                   onError={(e) => {
                     e.currentTarget.style.display = 'none'
                     e.currentTarget.nextElementSibling.style.display = 'flex'
@@ -501,8 +529,8 @@ export default function Home() {
                 />
                 <div className="hidden h-[200px] w-[200px] flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed border-brand-200 text-center text-[12px] text-ink/45">
                   <QrCode size={40} className="text-brand-300" />{tr("QR image not found")}</div>
-              </div>
-              <p className="mt-3 text-center text-[12.5px] font-medium text-white/80">{tr("Scan for bus service details")}</p>
+              </Link>
+              <p className="mt-3 text-center text-[12.5px] font-medium text-white/80">{tr("Scan with phone or click to view schedule")}</p>
             </div>
           </div>
         </div>

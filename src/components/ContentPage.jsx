@@ -1,7 +1,7 @@
 import { useLanguage } from '../i18n/LanguageContext.jsx'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, CheckCircle2, QrCode, ParkingCircle, BadgeCheck, Info, ExternalLink, MapPin } from 'lucide-react'
+import { ArrowRight, CheckCircle2, QrCode, ParkingCircle, BadgeCheck, Info, ExternalLink, MapPin, Download } from 'lucide-react'
 import { PageHero, SectionHeading, Img } from './ui.jsx'
 
 /* ---------------------------- section renderers ---------------------------- */
@@ -509,8 +509,46 @@ function QR({ kicker, title, highlight, text, points, image, caption }) {
                 <QrCode size={40} className="text-brand-300" />{tr("QR image not found")}</div>
             </div>
           </div>
-          {caption && <p className="mt-4 text-center text-[12.5px] font-medium text-ink/55">{tr(caption)}</p>}
         </div>
+      </div>
+    </div>
+  )
+}
+
+function ImageSection({ kicker, title, highlight, subtitle, image, alt, caption }) {
+  const { t: tr, language } = useLanguage()
+  return (
+    <div className="container-x">
+      {title && <SectionHeading kicker={kicker} title={tr(title)} highlight={highlight} subtitle={subtitle} />}
+      <div className="animate-fade-up overflow-hidden rounded-[32px] bg-white p-4 shadow-[0_24px_66px_rgba(15,39,64,0.14)] ring-1 ring-brand-100/60 sm:p-6 lg:p-8">
+        <div className="relative group overflow-hidden rounded-2xl bg-brand-50/50 ring-1 ring-brand-100/70">
+          <img
+            src={image}
+            alt={tr(alt || title || 'Schedule')}
+            className="w-full h-auto object-contain rounded-2xl"
+            loading="lazy"
+          />
+          <div className="absolute top-4 right-4 flex flex-wrap items-center gap-2">
+            <a
+              href={image}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-full bg-white/95 px-4 py-2 text-[13px] font-semibold text-brand-700 shadow-md backdrop-blur transition hover:bg-white hover:scale-105"
+            >
+              <ExternalLink size={14} /> {tr("Open Full Size")}
+            </a>
+            <a
+              href={image}
+              download="Ras_Al_Khaimah_Airport_Shuttle_Guide.png"
+              className="inline-flex items-center gap-1.5 rounded-full bg-brand-600 px-4 py-2 text-[13px] font-semibold text-white shadow-md transition hover:bg-brand-700 hover:scale-105"
+            >
+              <Download size={14} /> {tr("Download Guide")}
+            </a>
+          </div>
+        </div>
+        {caption && (
+          <p className="mt-4 text-center text-[13px] font-medium text-ink/60">{tr(caption)}</p>
+        )}
       </div>
     </div>
   )
@@ -598,7 +636,7 @@ export default function ContentPage({ cfg }) {
       {cfg.sections.map((s, i) => {
         const bg = s.bg || (i % 2 === 0 ? 'white' : 'mist')
         return (
-          <section key={i} className={`${BG[bg]} py-20`}>
+          <section key={i} id={s.id} className={`${BG[bg]} py-20 ${s.id ? 'scroll-mt-24' : ''}`}>
             {s.type === 'intro' && <Intro {...s} />}
             {s.type === 'cards' && <Cards {...s} />}
             {s.type === 'team' && <Team {...s} />}
@@ -608,6 +646,7 @@ export default function ContentPage({ cfg }) {
             {s.type === 'cta' && <CTA {...s} />}
             {s.type === 'actions' && <ActionCards {...s} />}
             {s.type === 'qr' && <QR {...s} />}
+            {s.type === 'image' && <ImageSection {...s} />}
             {s.type === 'pricing' && <Pricing {...s} />}
             {s.type === 'map' && <MapEmbed {...s} />}
             {s.type === 'mapcards' && <MapCards {...s} />}

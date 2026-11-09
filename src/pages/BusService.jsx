@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { AlertTriangle, Bus, CalendarDays, CheckCircle2, ChevronDown, Clock3, MapPin, Phone, Route as RouteIcon, Shield } from 'lucide-react'
+import { AlertTriangle, Bus, CalendarDays, CheckCircle2, ChevronDown, Clock3, MapPin, Phone, Route as RouteIcon, Shield, Download, ExternalLink } from 'lucide-react'
 import { Img, PageHero, SectionHeading } from '../components/ui.jsx'
 
 const time = (value) => {
@@ -45,7 +45,42 @@ export default function BusService() {
       { name: 'Ajman', details: 'Opposite Lucky Center.', image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Ajman.jpg?width=800' },
       { name: 'Umm Al Quwain', details: 'Mall of UAQ.', image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Umm%20Al%20Quwain%20Fort.jpg?width=800' },
     ].map((place) => <article key={place.name} className="group overflow-hidden rounded-3xl bg-white shadow-[0_18px_55px_rgba(15,39,64,0.13)] ring-1 ring-brand-100/60 transition-all hover:-translate-y-1.5 hover:shadow-[0_30px_75px_rgba(19,120,212,0.24)]"><div className="relative h-48 overflow-hidden"><Img src={place.image} alt={place.name} className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"/><span className="absolute left-4 top-4 grid h-10 w-10 place-items-center rounded-xl bg-white/90 text-brand-600 backdrop-blur"><MapPin size={18}/></span></div><div className="p-6"><h3 className="mt-1 font-display text-lg font-semibold text-ink">{place.name}</h3><p className="mt-2 text-[13.5px] leading-relaxed text-ink/55">{place.details}</p></div></article>)}</div></div></section>
-    <section className="bg-white py-20"><div className="container-x"><SectionHeading kicker="Live schedule" title="Shuttle Bus" highlight="Timetable" subtitle="View current pickup locations, departure times and estimated arrival at Ras Al Khaimah International Airport." />
+    <section id="schedule-guide" className="bg-white py-20 scroll-mt-24">
+      <div className="container-x">
+        <SectionHeading kicker="Schedule & routes" title="Shuttle Bus" highlight="Schedule Guide" subtitle="Passenger pick-up locations, departure timings, and return drop points across the UAE." />
+        <div className="animate-fade-up overflow-hidden rounded-[32px] bg-white p-4 shadow-[0_24px_66px_rgba(15,39,64,0.14)] ring-1 ring-brand-100/60 sm:p-6 lg:p-8">
+          <div className="relative group overflow-hidden rounded-2xl bg-brand-50/50 ring-1 ring-brand-100/70">
+            <img
+              src="/assets/aistudio/Ras_Al_Khaimah_Airport_Shuttle_Guide_ba371055.png"
+              alt="Ras Al Khaimah Airport Free Shuttle Bus Service Guide & Schedule"
+              className="w-full h-auto object-contain rounded-2xl"
+              loading="lazy"
+            />
+            <div className="absolute top-4 right-4 flex flex-wrap items-center gap-2">
+              <a
+                href="/assets/aistudio/Ras_Al_Khaimah_Airport_Shuttle_Guide_ba371055.png"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 rounded-full bg-white/95 px-4 py-2 text-[13px] font-semibold text-brand-700 shadow-md backdrop-blur transition hover:bg-white hover:scale-105"
+              >
+                <ExternalLink size={14} /> Open Full Size
+              </a>
+              <a
+                href="/assets/aistudio/Ras_Al_Khaimah_Airport_Shuttle_Guide_ba371055.png"
+                download="Ras_Al_Khaimah_Airport_Shuttle_Guide.png"
+                className="inline-flex items-center gap-1.5 rounded-full bg-brand-600 px-4 py-2 text-[13px] font-semibold text-white shadow-md transition hover:bg-brand-700 hover:scale-105"
+              >
+                <Download size={14} /> Download Guide
+              </a>
+            </div>
+          </div>
+          <p className="mt-4 text-center text-[13px] font-medium text-ink/60">
+            Free shuttle bus service is arranged for passengers holding valid flight tickets from/to RAK Airport. For assistance, call 800 1700.
+          </p>
+        </div>
+      </div>
+    </section>
+    <section className="bg-mist py-20"><div className="container-x"><SectionHeading kicker="Live schedule" title="Shuttle Bus" highlight="Timetable" subtitle="View current pickup locations, departure times and estimated arrival at Ras Al Khaimah International Airport." />
       {error && <div role="alert" className="mx-auto max-w-3xl rounded-2xl border border-amber-200 bg-amber-50 px-5 py-4 text-sm text-amber-900"><AlertTriangle className="mr-2 inline" size={18}/>{error}</div>}
       {!schedule && !error && <div className="mx-auto max-w-3xl animate-pulse rounded-3xl bg-brand-50 p-14 text-center text-brand-600">Loading current shuttle timetable…</div>}
       {schedule && (

@@ -15,10 +15,26 @@ import Contact from './pages/Contact.jsx'
 import { pages } from './data/pages.js'
 
 function ScrollToTop() {
-  const { pathname } = useLocation()
+  const { pathname, hash } = useLocation()
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' })
-  }, [pathname])
+    if (hash) {
+      const id = hash.replace('#', '')
+      const scrollToHash = () => {
+        const el = document.getElementById(id)
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' })
+          return true
+        }
+        return false
+      }
+      if (!scrollToHash()) {
+        const timer = setTimeout(scrollToHash, 150)
+        return () => clearTimeout(timer)
+      }
+    } else {
+      window.scrollTo({ top: 0, behavior: 'instant' })
+    }
+  }, [pathname, hash])
   return null
 }
 
