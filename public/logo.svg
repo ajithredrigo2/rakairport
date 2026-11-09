@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" fill="none">
+  <!-- Navy sail / tower with scalloped (crenellated) top -->
+  <path fill="#0E3B5C" d="
+    M 384 726
+    C 500 532 598 348 688 168
+    Q 710 130 732 168
+    Q 754 130 776 168
+    Q 798 130 820 168
+    Q 842 130 864 166
+    C 892 176 914 206 924 248
+    C 940 330 939 474 930 614
+    C 927 668 922 702 915 713
+    C 910 722 902 726 890 726
+    L 384 726 Z
+  "/>
+  <!-- White wind lines -->
+  <path stroke="#FFFFFF" stroke-width="22" stroke-linecap="round" d="
+    M 726 366 C 800 338 866 336 924 352
+  "/>
+  <path stroke="#FFFFFF" stroke-width="22" stroke-linecap="round" d="
+    M 694 566 C 778 536 854 538 918 558
+  "/>
+  <!-- Green wave / leaf base -->
+  <path fill="#7AC043" d="
+    M 140 778
+    C 366 716 626 706 986 748
+    C 948 868 744 918 520 912
+    C 356 908 204 870 140 778 Z
+  "/>
+</svg>

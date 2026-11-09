@@ -1,0 +1,24 @@
+node_modules
+dist
+dist-ssr
+*.local
+.vite
+.DS_Store
+npm-debug.log*
+
+.claude/
+
+# Local env for `netlify dev`
+.env
+.env.local
+.netlify
+dist/assistant/config.php
+# Secrets belong in the hosting provider or CI secret store, never in `public/`.
+# Keep any local PHP fallback configuration outside the web root.
+public/assistant/config.php
+
+# Deploy bundle — large build artifact, no need to commit
+*.zip
+
+# Stale nested duplicate of this project (leftover extracted copy, not source)
+/rak-airport-main/

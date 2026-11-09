@@ -1,0 +1,51 @@
+// Jenkins pipeline to host the Rakia AI API (server/rakia-server.mjs).
+// Run this on the agent/node that will BE the public API host.
+//
+// Prerequisites on that agent:
+//   - Node.js 18+           (node -v)
+//   - pm2                   (npm i -g pm2)   — keeps the server running/restarting
+//   - A Jenkins credential (Secret text) named 'groq-api-key' holding the Groq key
+//     (store only in Jenkins credentials; never commit it to the repository)
+//
+// After this runs, the API listens on 127.0.0.1:$PORT — put nginx in front of it
+// on a subdomain with HTTPS (see server/README.md), e.g.
+//   https://api.rakairport.redquantaris.com/chat  ->  http://127.0.0.1:3001/chat
+
+pipeline {
+  agent any
+
+  environment {
+    GROQ_API_KEY = credentials('groq-api-key')            // add in Jenkins > Manage > Credentials
+    ALLOW_ORIGIN = 'https://www.rakairport.com'           // public site origin (CORS lock)
+    HOST         = '127.0.0.1'                            // only IIS may reach Node
+    PORT         = '3001'
+    TRUST_PROXY  = 'true'                                 // IIS removes client-supplied X-Forwarded-For
+  }
+
+  stages {
+    stage('Check Node') {
+      steps { sh 'node -v' }
+    }
+
+    stage('Deploy Rakia AI server') {
+      steps {
+        dir('server') {
+          sh '''
+            set -e
+            # (Re)start the API under pm2 with the env vars above.
+            pm2 delete rakia-ai || true
+            GROQ_API_KEY="$GROQ_API_KEY" ALLOW_ORIGIN="$ALLOW_ORIGIN" HOST="$HOST" PORT="$PORT" TRUST_PROXY="$TRUST_PROXY" \
+              pm2 start rakia-server.mjs --name rakia-ai --update-env
+            pm2 save
+          '''
+        }
+      }
+    }
+
+    stage('Health check') {
+      steps {
+        sh 'sleep 2 && curl -fsS "http://127.0.0.1:${PORT}/health"'
+      }
+    }
+  }
+}

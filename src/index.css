@@ -1,0 +1,216 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", "IBM Plex Sans Arabic", system-ui, sans-serif;
+  --font-display: "Poppins", "Cairo", system-ui, sans-serif;
+
+  /* Brand palette - light aviation theme */
+  --color-brand-50: #eff8ff;
+  --color-brand-100: #d8eefe;
+  --color-brand-200: #b8e1fe;
+  --color-brand-300: #87cefb;
+  --color-brand-400: #4fb2f6;
+  --color-brand-500: #2196ec;
+  --color-brand-600: #1378d4;
+  --color-brand-700: #1361ab;
+  --color-brand-800: #15528d;
+  --color-brand-900: #174674;
+
+  --color-teal-accent: #14b8a6;
+  --color-ink: #0f2740;
+  --color-mist: #f4f9fd;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-mist text-ink font-sans antialiased;
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+  }
+  /* Clear, consistent keyboard focus ring for all interactive elements */
+  :where(a, button, input, select, textarea, [tabindex]):focus-visible {
+    outline: 3px solid var(--color-brand-500);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+}
+
+/* Modern, slim page scrollbar (replaces the chunky default OS scrollbar) */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-brand-400) transparent;
+}
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--color-brand-500), var(--color-teal-accent));
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--color-brand-600), var(--color-teal-accent));
+  background-clip: content-box;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Respect users who prefer reduced motion: stop animations & smooth scrolling */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@layer utilities {
+  .container-x {
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-8;
+  }
+  .animate-fade-up {
+    animation: fadeUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .animate-fade-in {
+    animation: fadeIn 0.8s ease both;
+  }
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(26px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes dropIn {
+  from { opacity: 0; transform: translateY(-10px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+@keyframes itemIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+@keyframes marquee {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+@keyframes marquee-reverse {
+  from { transform: translate3d(-50%, 0, 0); }
+  to { transform: translate3d(0, 0, 0); }
+}
+
+@layer utilities {
+  .animate-marquee {
+    animation: marquee 55s linear infinite;
+    will-change: transform;
+  }
+  .animate-marquee-reverse {
+    animation: marquee-reverse 68s linear infinite;
+    will-change: transform;
+  }
+  /* pause both rows when hovering the section */
+  .marquee-pause:hover .animate-marquee,
+  .marquee-pause:hover .animate-marquee-reverse {
+    animation-play-state: paused;
+  }
+
+  /* styled horizontal scrollbar with a brand-blue thumb */
+  .scrollbar-x {
+    scrollbar-width: thin;
+    scrollbar-color: #1378d4 #e6edf3;
+  }
+  .scrollbar-x::-webkit-scrollbar {
+    height: 8px;
+  }
+  .scrollbar-x::-webkit-scrollbar-track {
+    background: #e6edf3;
+    border-radius: 9999px;
+  }
+  .scrollbar-x::-webkit-scrollbar-thumb {
+    background: linear-gradient(90deg, #1378d4, #22b3b9);
+    border-radius: 9999px;
+  }
+}
+
+@layer utilities {
+  .animate-drop-in {
+    animation: dropIn 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+    transform-origin: top center;
+  }
+  .animate-item-in {
+    animation: itemIn 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+}
+
+/* Hide scrollbar for horizontal scrollers */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ─────────────────────────── RTL (Arabic) support ───────────────────────────
+   The layout is written with physical Tailwind utilities (ml-/mr-/left-/right-).
+   These rules mirror the handful that would otherwise break when
+   document.documentElement.dir switches to "rtl". */
+
+[dir='rtl'] {
+  /* Arabic reads better with a touch more line height at these sizes */
+  line-height: 1.75;
+  font-family: "IBM Plex Sans Arabic", system-ui, sans-serif;
+}
+[dir='rtl'] .font-display {
+  font-family: "Cairo", "IBM Plex Sans Arabic", system-ui, sans-serif;
+}
+
+/* Directional chevrons and arrows point the other way in Arabic */
+[dir='rtl'] .lucide-arrow-right,
+[dir='rtl'] .lucide-arrow-left,
+[dir='rtl'] .lucide-chevron-right,
+[dir='rtl'] .lucide-chevron-left,
+[dir='rtl'] .lucide-external-link,
+[dir='rtl'] .lucide-send {
+  transform: scaleX(-1);
+}
+
+/* "push to the far edge" spacing */
+[dir='rtl'] .ml-auto { margin-left: 0; margin-right: auto; }
+[dir='rtl'] .mr-auto { margin-right: 0; margin-left: auto; }
+
+/* Dropdowns anchored to an edge */
+[dir='rtl'] .xl\:flex .right-0,
+[dir='rtl'] header .right-0 { right: auto; left: 0; }
+[dir='rtl'] header .right-10 { right: auto; left: 2.5rem; }
+
+/* Numerals, times, flight codes and phone numbers stay left-to-right
+   so they don't get reordered inside Arabic sentences. */
+[dir='rtl'] .ltr-nums,
+[dir='rtl'] table td,
+[dir='rtl'] table th {
+  unicode-bidi: plaintext;
+}
+
+/* Hero and section text alignment follows the document direction */
+[dir='rtl'] .text-left { text-align: right; }
+[dir='rtl'] .text-right { text-align: left; }
