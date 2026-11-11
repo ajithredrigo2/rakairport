@@ -539,7 +539,7 @@ function ImageSection({ kicker, title, highlight, subtitle, image, alt, caption 
             </a>
             <a
               href={image}
-              download="Ras_Al_Khaimah_Airport_Shuttle_Guide.png"
+              download="RAK_Shuttle_Bus.png"
               className="inline-flex items-center gap-1.5 rounded-full bg-brand-600 px-4 py-2 text-[13px] font-semibold text-white shadow-md transition hover:bg-brand-700 hover:scale-105"
             >
               <Download size={14} /> {tr("Download Guide")}

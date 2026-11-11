@@ -37,7 +37,7 @@ export default function BusService() {
   const trip = useMemo(() => route?.trips.find((t) => t.id === tripId) || route?.trips[0], [route, tripId])
   const selectRoute = (id) => { setRouteId(id); const r = schedule.routes.find((item) => item.id === id); setTripId(r?.trips[0]?.id || '') }
   return <>
-    <PageHero image="/Airport-Free-Bus-Service-hero.jpg" badge="Complimentary Service" title="Free Shuttle Bus Service" subtitle="Travel conveniently to and from Ras Al Khaimah International Airport with our complimentary shuttle bus service." />
+    <PageHero image="/Airport-Free-Bus-Service-hero.jpg" badge="Dedicated Shuttle Service" title="Free Shuttle Bus Service" subtitle="Travel conveniently to and from Ras Al Khaimah International Airport with our dedicated complimentary shuttle bus service." />
     <section className="bg-white py-20"><div className="container-x"><article className="grid items-stretch overflow-hidden rounded-[28px] bg-white shadow-[0_22px_65px_rgba(15,39,64,0.14)] ring-1 ring-brand-100/60 md:grid-cols-2"><div className="relative h-56 overflow-hidden sm:h-64 md:h-auto md:min-h-0"><Img src="/free-shuttle-bus.jpg" alt="RAK Airport free shuttle bus" className="absolute inset-0 h-full w-full object-cover" eager/></div><div className="flex flex-col justify-center gap-4 p-9 sm:p-12"><span className="grid h-12 w-12 place-items-center rounded-xl bg-brand-50 text-brand-600"><Bus size={24}/></span><h2 className="font-display text-2xl font-semibold tracking-tight text-ink">Travel comfortably, for free</h2><p className="max-w-md text-[14.5px] leading-relaxed text-ink/55">A complimentary shuttle bus connects Ras Al Khaimah International Airport to major locations across the UAE — seamless, comfortable transit for passengers, with schedules aligned to flight times.</p><ul className="mt-1 space-y-2.5">{['No cost to passengers','Air-conditioned coaches','Schedules aligned with flights'].map((item) => <li key={item} className="flex items-start gap-2.5 text-[14px] font-medium text-ink/75"><CheckCircle2 size={18} className="mt-0.5 flex-shrink-0 text-teal-accent"/>{item}</li>)}</ul></div></article></div></section>
     <section className="bg-gradient-to-b from-brand-200 to-brand-50 py-20"><div className="container-x"><SectionHeading kicker="Routes & stops" title="Where the shuttle" highlight="goes" subtitle="Six stops across four emirates." /><div className="grid gap-7 sm:grid-cols-2 lg:grid-cols-4">{[
       { name: 'Dubai', details: 'Three stops: Deira, Al Quoz and Muhaisnah.', image: 'https://commons.wikimedia.org/wiki/Special:FilePath/Dubai%20skyline%202015.jpg?width=800' },
@@ -51,14 +51,14 @@ export default function BusService() {
         <div className="animate-fade-up overflow-hidden rounded-[32px] bg-white p-4 shadow-[0_24px_66px_rgba(15,39,64,0.14)] ring-1 ring-brand-100/60 sm:p-6 lg:p-8">
           <div className="relative group overflow-hidden rounded-2xl bg-brand-50/50 ring-1 ring-brand-100/70">
             <img
-              src="/assets/aistudio/RAK_Shuttle_Combined_Vertical_b4955fea.png"
+              src="/assets/aistudio/RAK_Shuttle_Bus.png"
               alt="Ras Al Khaimah Airport Free Shuttle Bus Service Guide & Schedule"
               className="w-full h-auto object-contain rounded-2xl"
               loading="lazy"
             />
             <div className="absolute top-4 right-4 flex flex-wrap items-center gap-2">
               <a
-                href="/assets/aistudio/RAK_Shuttle_Combined_Vertical_b4955fea.png"
+                href="/assets/aistudio/RAK_Shuttle_Bus.png"
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-1.5 rounded-full bg-white/95 px-4 py-2 text-[13px] font-semibold text-brand-700 shadow-md backdrop-blur transition hover:bg-white hover:scale-105"
@@ -66,8 +66,8 @@ export default function BusService() {
                 <ExternalLink size={14} /> Open Full Size
               </a>
               <a
-                href="/assets/aistudio/RAK_Shuttle_Combined_Vertical_b4955fea.png"
-                download="Ras_Al_Khaimah_Airport_Shuttle_Guide.png"
+                href="/assets/aistudio/RAK_Shuttle_Bus.png"
+                download="RAK_Shuttle_Bus.png"
                 className="inline-flex items-center gap-1.5 rounded-full bg-brand-600 px-4 py-2 text-[13px] font-semibold text-white shadow-md transition hover:bg-brand-700 hover:scale-105"
               >
                 <Download size={14} /> Download Guide
