@@ -51,14 +51,14 @@ export default function BusService() {
         <div className="animate-fade-up overflow-hidden rounded-[32px] bg-white p-4 shadow-[0_24px_66px_rgba(15,39,64,0.14)] ring-1 ring-brand-100/60 sm:p-6 lg:p-8">
           <div className="relative group overflow-hidden rounded-2xl bg-brand-50/50 ring-1 ring-brand-100/70">
             <img
-              src="/assets/aistudio/Ras_Al_Khaimah_Airport_Shuttle_Guide_ba371055.png"
+              src="/assets/aistudio/RAK_Shuttle_Combined_Vertical_b4955fea.png"
               alt="Ras Al Khaimah Airport Free Shuttle Bus Service Guide & Schedule"
               className="w-full h-auto object-contain rounded-2xl"
               loading="lazy"
             />
             <div className="absolute top-4 right-4 flex flex-wrap items-center gap-2">
               <a
-                href="/assets/aistudio/Ras_Al_Khaimah_Airport_Shuttle_Guide_ba371055.png"
+                href="/assets/aistudio/RAK_Shuttle_Combined_Vertical_b4955fea.png"
                 target="_blank"
                 rel="noreferrer"
                 className="inline-flex items-center gap-1.5 rounded-full bg-white/95 px-4 py-2 text-[13px] font-semibold text-brand-700 shadow-md backdrop-blur transition hover:bg-white hover:scale-105"
@@ -66,7 +66,7 @@ export default function BusService() {
                 <ExternalLink size={14} /> Open Full Size
               </a>
               <a
-                href="/assets/aistudio/Ras_Al_Khaimah_Airport_Shuttle_Guide_ba371055.png"
+                href="/assets/aistudio/RAK_Shuttle_Combined_Vertical_b4955fea.png"
                 download="Ras_Al_Khaimah_Airport_Shuttle_Guide.png"
                 className="inline-flex items-center gap-1.5 rounded-full bg-brand-600 px-4 py-2 text-[13px] font-semibold text-white shadow-md transition hover:bg-brand-700 hover:scale-105"
               >

@@ -729,7 +729,7 @@ export const pages = {
         title: 'Shuttle Bus',
         highlight: 'Schedule Guide',
         subtitle: 'Passenger pick-up locations, departure timings, and return drop points across the UAE.',
-        image: '/assets/aistudio/Ras_Al_Khaimah_Airport_Shuttle_Guide_ba371055.png',
+        image: '/assets/aistudio/RAK_Shuttle_Combined_Vertical_b4955fea.png',
         alt: 'Ras Al Khaimah Airport Free Shuttle Bus Service Guide & Schedule',
         caption: 'Free shuttle bus service is arranged for passengers holding valid flight tickets from/to RAK Airport. For assistance, call 800 1700.',
       },
